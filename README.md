@@ -6,3 +6,7 @@
 #### What we need to do
 - Create the immutable stack
 - Use the two immutable stack to implement immutable queue
+#### How to execute
+- mvn install
+#### How to test
+- mvn test
