@@ -9,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+@SuppressWarnings("unchecked")
 public class ImmutableQueueTest {
 	
 	@Rule
@@ -19,31 +20,31 @@ public class ImmutableQueueTest {
 	
 	@Test
 	public void testQueue() {
-		Queue<Integer> imQueue = new ImmutableQueue<Integer>();
+		Queue<Integer> imQueue = ImmutableQueue.build();
 		int[] tests = new int[]{1,2,3,4,5};
 		for(int t : tests) {
 			imQueue = imQueue.enQueue(t);
 		}
-		assertArrayEquals(tests, getValues(imQueue));
+		assertArrayEquals(tests, getValues(imQueue, tests.length));
 	}
 	
 	@Test
 	public void testEnqueueWithNull() {
-		Queue<Integer> imQueue = new ImmutableQueue<Integer>();
+		Queue<Integer> imQueue = ImmutableQueue.build();
 		exceptionRule1.expect(IllegalArgumentException.class);
 		imQueue = imQueue.enQueue(null);
 	}
 	
 	@Test
 	public void testDequeueWithNull() {
-		Queue<Integer> imQueue = new ImmutableQueue<Integer>();
+		Queue<Integer> imQueue = ImmutableQueue.build();
 		exceptionRule2.expect(NoSuchElementException.class);
 		imQueue = imQueue.deQueue();
 	}
 	
 	@Test
 	public void testHead() {
-		Queue<Integer> imQueue = new ImmutableQueue<Integer>();
+		Queue<Integer> imQueue = ImmutableQueue.build();
 		int[] tests = new int[]{1,2,3,4,5};
 		for(int t : tests) {
 			imQueue = imQueue.enQueue(t);
@@ -53,7 +54,7 @@ public class ImmutableQueueTest {
 	
 	@Test
 	public void testTail() {
-		Queue<Integer> imQueue = new ImmutableQueue<Integer>();
+		Queue<Integer> imQueue = ImmutableQueue.build();
 		int[] tests = new int[]{1,2,3,4,5};
 		for(int t : tests) {
 			imQueue = imQueue.enQueue(t);
@@ -63,7 +64,7 @@ public class ImmutableQueueTest {
 	
 	@Test
 	public void testIsEmpty() {
-		Queue<Integer> imQueue = new ImmutableQueue<Integer>();
+		Queue<Integer> imQueue = ImmutableQueue.build();
 		int[] tests = new int[]{1,2,3,4,5};
 		for(int t : tests) {
 			imQueue = imQueue.enQueue(t);
@@ -71,8 +72,8 @@ public class ImmutableQueueTest {
 		assertEquals(false, imQueue.isEmpty());
 	}
 	
-	private static int[] getValues(Queue<Integer> q) {
-		int[] values = new int[q.getSize()];
+	private static int[] getValues(Queue<Integer> q, int size) {
+		int[] values = new int[size];
 		int idx = 0;
 		while(q != null && !q.isEmpty()){
 			values[idx] = q.head();

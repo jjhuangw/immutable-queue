@@ -24,4 +24,9 @@ public interface Queue<T> {
      * @return Return the last element in the queue
      * */
     public T tail();
+    /**
+	 * Return queue size
+	 * @return return the queue size
+	 */
+    public int getSize();
 }
